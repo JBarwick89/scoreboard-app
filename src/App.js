@@ -1,23 +1,34 @@
-import logo from './logo.svg';
 import './App.css';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 function App() {
+  const [Games, setGames] = useState([]);
+
+  useEffect(() => {
+    const getGames = async () => {
+      const { data } = await axios.get('/games', {
+        // headers: {
+        //   'Access-Control-Allow-Origin': '*',
+        // }, 
+        // withCredentials: false,
+        params: {
+          // limit: 1,
+          date: '2022-05-12',
+          priority_order: true,
+        },
+      });
+
+      console.log(data); //TODO: REMOVE
+      return data;
+    }
+  
+    setGames(getGames());
+  }, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      
     </div>
   );
 }
