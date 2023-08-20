@@ -32,7 +32,6 @@ export default function Game(props) {
   
   const sportName = sportIdMapping[props.game.sport_id];
 
-  // console.log(props.game);
   const { team: teamOne, score: teamOneScore } = props.game.game_teams[0];
   const { mascot: teamOneMascot, name: teamOneName } = teamOne;
 
@@ -59,7 +58,6 @@ export default function Game(props) {
           {teamTwoScore}
         </div>            
       </div>
-      {/* {props.game.location} */}
     </div>
   );
 }
