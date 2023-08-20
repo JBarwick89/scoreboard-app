@@ -1,0 +1,26 @@
+.gameBox {
+  padding: 20px;
+  border-radius: 25px;
+  border: 1px solid black;
+  box-sizing: border-box;
+  grid-auto-rows: 100px;
+  
+  .sportName {
+    font-weight: 800;
+  }
+
+  .teamRow {
+    display: flex;
+  
+    .teamName {
+      font: 800;
+      
+    }
+  
+    .teamScore {
+      font: 800;
+      padding-left: 10px;
+    }  
+  }
+}
+
