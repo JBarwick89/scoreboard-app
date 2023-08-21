@@ -1,6 +1,6 @@
 import './Game.scss';
 
-export default function Game(props) {
+export function Game(props) {
   const sportIdMapping = {
     1: 'Basketball',
     2: 'Football',
@@ -17,8 +17,8 @@ export default function Game(props) {
     13: 'Tennis',
   };
 
-  const sportGender =  (() => {
-    switch (props.game.gender_id) {
+  function renderSportGender(genderId) {
+    switch(genderId) {
       case 1:
         return 'Boys';
       case 2:
@@ -28,34 +28,29 @@ export default function Game(props) {
       default:
         return '';
     }
-  })();
-  
+  }
+
   const sportName = sportIdMapping[props.game.sport_id];
-
-  const { team: teamOne, score: teamOneScore } = props.game.game_teams[0];
-  const { mascot: teamOneMascot, name: teamOneName } = teamOne;
-
-  const { team: teamTwo, score: teamTwoScore } = props.game.game_teams[1];
-  const { mascot: teamTwoMascot, name: teamTwoName } = teamTwo;
+  const [teamOne, teamTwo] = props.game.game_teams;
 
   return (
     <div className="gameBox">
-      <span className="sportName">{`${sportGender} ${sportName}`}</span>
+      <span className="sportName">{`${renderSportGender(props.game.gender_id)} ${sportName}`}</span>
       <div className="teamRow">
         <div className="teamName">
-          {`${teamOneName} ${teamOneMascot}`}
+          {`${teamOne.team.name} ${teamOne.team.mascot}`}
         </div>
         <div className="teamScore">
-          {teamOneScore}
+          {teamOne.score}
         </div>        
       </div>
 
       <div className="teamRow">
         <div className="teamName">
-          {`${teamTwoName} ${teamTwoMascot}`}
+          {`${teamTwo.team.name} ${teamTwo.team.mascot}`}
         </div>
         <div className="teamScore">
-          {teamTwoScore}
+          {teamTwo.score}
         </div>            
       </div>
     </div>

@@ -1,12 +1,13 @@
-import './App.scss';
-import Scoreboard from './Scoreboard';
 import { useCallback, useEffect, useState } from 'react';
 import axios from 'axios';
+import { format } from 'date-fns'
+import './App.scss';
+import { Scoreboard } from './Scoreboard';
 
 function App() {
-  const [Games, setGames] = useState([]);
+  const [games, setGames] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [date, setDate] = useState(new Date().toLocaleDateString("en-CA"));
+  const [date, setDate] = useState(format(new Date(), 'yyyy-MM-dd'));
 
   const fetchGamesData = useCallback(async () => {
     try {
@@ -22,12 +23,13 @@ function App() {
       setLoading(false);
     } catch (error) {
       console.error('Error fetching games data:', error);
+      setLoading(false);
     }
-  }, []);
+  }, [date]);
 
   useEffect(() => {
     fetchGamesData();
-  }, [fetchGamesData, date]);
+  }, [fetchGamesData]);
 
   const onChangeDate = (newDate) => {
     setDate(newDate.target.value);
@@ -38,7 +40,7 @@ function App() {
       <div className="dateSelector">
         <input 
           type="date" 
-          value={date} 
+          value={date}
           onChange={(e)=>onChangeDate(e)}
         />
       </div>
@@ -47,8 +49,8 @@ function App() {
         ? <b>Loading.......</b>
         : <>
             {
-              Games.length > 0
-              ? <Scoreboard games={Games} />
+              games.length > 0
+              ? <Scoreboard games={games} />
               : <b>No Games for that day!</b>
             }
           </>
